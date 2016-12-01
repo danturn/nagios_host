@@ -1,4 +1,4 @@
-apt-get install nagios-nrpe-server nagios-plugins nagios-nrpe-plugin --force
+apt-get install nagios-nrpe-server nagios-plugins nagios-nrpe-plugin -y
 sed -i 's/^allowed_hosts=127.0.0.1.*/allowed_hosts=127.0.0.1,192.168.3.0\/24/' /etc/nagios/nrpe.cfg
 service nagios-nrpe-server restart
 
