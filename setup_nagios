@@ -1,0 +1,13 @@
+apt-get install nagios-nrpe-server nagios-plugins nagios-nrpe-plugin -force
+sed -i 's/^allowed_hosts=127.0.0.1.*/allowed_hosts=127.0.0.1,192.168.3.0\/24/' /etc/nagios/nrpe.cfg
+service nagios-nrpe-server restart
+
+ip_address=$(sudo ifconfig | awk '/inet addr/{print substr($2,6)}' | grep 192.168.3)
+/usr/lib/nagios/plugins/check_nrpe -H $ip_address
+exit_code=$?
+if [ $exit_code -eq 0 ]; then
+    echo "Nagios was set up correctly"
+else
+    echo "Nagios setup failed!"
+    exit $exit_code
+fi
