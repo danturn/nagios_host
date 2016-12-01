@@ -3,7 +3,7 @@ apt-get update
 apt-get install nagios-nrpe-server nagios-plugins nagios-nrpe-plugin -y
 ip_address=$(ip route get 1 | awk '{print $NF;exit}')
 
-sed -i 's/^allowed_hosts=127.0.0.1.*/allowed_hosts=127.0.0.1,$ip_address,$nagios_server/' /etc/nagios/nrpe.cfg
+sed -i "s/^allowed_hosts=127.0.0.1.*/allowed_hosts=127.0.0.1,$ip_address,$nagios_server/" /etc/nagios/nrpe.cfg
 service nagios-nrpe-server restart
 
 /usr/lib/nagios/plugins/check_nrpe -H $ip_address
