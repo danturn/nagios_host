@@ -7,6 +7,7 @@ sed -i "s/^allowed_hosts=127.0.0.1.*/allowed_hosts=127.0.0.1,$ip_address,$nagios
 service nagios-nrpe-server restart
 
 n=0
+exit_code=0
 until [ $n -ge 5 ]
 do
    sudo service nagios-nrpe-server status > /dev/null && break  # substitute your command here
